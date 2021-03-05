@@ -1,11 +1,12 @@
 import psycopg2
 
 
-def mysql_qvery(conn, qvery):
+def pssql_qvery(conn, qwery):
     cursor = conn.cursor()
-    cursor.execute(qvery)
+    cursor.execute(qwery)
     records = cursor.fetchall()
 
+    print(cursor.description)
     for row in records:
         print(row)
 
@@ -22,18 +23,22 @@ if __name__ == "__main__":
     conn = mysql_connect()
 
     try:
-        qvery = """
+        qwery = """
         COPY orders (id, added_at, departure_at, code_shop, franch_inn, weight, volume, width, depth, height)
         FROM '\\\\192.168.0.198\\tbp\\temp_order_csv_test\\orders\\1_SQL_CSV_TBP_orders_20210304164247.csv'
         WITH (FORMAT csv,
         HEADER TRUE,
         DELIMITER '|'
-        );"""
+        );
+        """
+        qwery = qwery.replace('\\', '\\\\')
 
-        # qvery = "select version();"
-        mysql_qvery(conn, qvery)
-    except:
-        print('error')
+        # qwery = 'select * from orders'
+
+        # qwery = 'select version();'
+        pssql_qvery(conn, qwery)
+    except Exception as err:
+        print(f'error: {err}')
     else:
         conn.close()
     finally:
