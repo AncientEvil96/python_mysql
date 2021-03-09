@@ -15,8 +15,7 @@ def pssql_qvery(conn, qwery):
 
 
 def mysql_connect():
-    conn = psycopg2.connect(dbname='order_swap_test', user='postgres',
-                            password='delay159', host='192.168.0.175')
+    conn = psycopg2.connect(dbname='order_swap_test', user='postgres', password='delay159', host='192.168.0.175')
     return conn
 
 
