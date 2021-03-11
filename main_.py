@@ -21,19 +21,21 @@ def mysql_connect():
 
 if __name__ == "__main__":
     conn = mysql_connect()
+    way_file = '\\\\192.168.0.198\\tbp\\temp_order_csv_test\\orders\\1_SQL_CSV_TBP_orders_20210304164247.csv'
+    way_file = way_file.replace('\\', '\\\\')
     i = 0
     try:
         while i < 20:
             i += 1
-            qwery = """
+            qwery = f"""
             COPY orders (id, added_at, departure_at, code_shop, franch_inn, weight, volume, width, depth, height)
-            FROM '\\\\192.168.0.198\\tbp\\temp_order_csv_test\\orders\\1_SQL_CSV_TBP_orders_20210304164247.csv'
+            FROM '{way_file}'
             WITH (FORMAT csv,
             HEADER TRUE,
             DELIMITER '|'
             );
             """
-            qwery = qwery.replace('\\', '\\\\')
+
 
             # qwery = 'select * from orders'
 
